@@ -1,24 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="auth-page">
-    <div class="auth-center">
-        <img src="{{ url_for('static', filename='wavingchatbot.png') }}" class="auth-avatar" alt="Chatbot">
-        <form action="/register" method="POST" class="auth-form">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="text" name="school_id" placeholder="School ID" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <select name="school" required>
-                <option value="">Select School</option>
-                <option value="School A">School A</option>
-                <option value="School B">School B</option>
-            </select>
-            <button type="submit" class="ask-btn">Register</button>
-        </form>
-        <a href="/login" class="ask-btn">Already have an account? Login</a>
-    </div>
+    
+<!-- 🌍 Language Selector -->
+<form method="GET" action="/set-language" style="position: absolute; top: 10px; right: 10px;">
+  <label for="language">🌍</label>
+  <select name="language" id="language" onchange="this.form.submit()">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="de">Deutsch</option>
+    <option value="ht">Kreyòl Ayisyen</option>
+    <option value="zh">中文</option>
+  </select>
+</form>
+
+
+
+<div class="auth-center">
+  <h1 class="page-heading">Create Your SmartGuard EDU Account</h1>
+
+  <img src="{{ url_for('static', filename='wavingchatbot.png') }}" class="auth-avatar" alt="Chatbot">
+
+  <form method="POST">
+    <input type="text" name="school_id" placeholder="School ID" required>
+
+    <select name="school" required>
+      <option value="">Select your school</option>
+      <option value="Hillsborough Community College">Hillsborough Community College</option>
+      <option value="University of South Florida">University of South Florida</option>
+      <option value="University of Central Florida">University of Central Florida</option>
+      <option value="Florida Agricultural & Mechanical University">Florida Agricultural & Mechanical University</option>
+      <option value="Florida State University">Florida State University</option>
+      <option value="University of Florida">University of Florida</option>
+    </select>
+
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+    <button type="submit">Register</button>
+  </form>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <p style="color:red;">{{ messages[0] }}</p>
+    {% endif %}
+  {% endwith %}
+
+  <a href="/login" class="ask-btn">Already have an account? Login</a>
+</div>
+
+<script src="/static/script.js"></script>
 </body>
 </html>

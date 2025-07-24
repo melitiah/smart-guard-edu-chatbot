@@ -1,0 +1,114 @@
+
+body.bg-light-blue {
+  background-color: #f5fbff;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.logout-btn {
+  background: #ddd5f5;
+  color: #333;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.robot-image {
+  width: 400px;
+  margin-right: 60px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.chat-container {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  flex: 1;
+}
+
+.lesson-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f4f8ff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  width: 45%;
+  text-align: center;
+}
+
+.card img {
+  width: 100px; /* or any smaller size you prefer */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.emoji-bar {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.chat-box {
+  background: #e6f0ff;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.chat-log {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.bot {
+  background: #dfefff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding: 8px 16px;
+  background: #d7d3f3;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

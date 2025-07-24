@@ -1,0 +1,333 @@
+body.bg-light-blue {
+  background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 28px;
+  padding-left: 20px;
+  color: #4c4c9d;
+}
+
+.logout-btn {
+  background: #7c7fdb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none; /* removes underline */
+  display: inline-block;
+  transition: background 0.3s;
+}
+.logout-btn:hover {
+  background: #5c5fa3;
+}
+
+.login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #4c4c9d;
+      margin-bottom: 20px;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .login-container button {
+      padding: 12px;
+      background: #7c7fdb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background: #5a5fd6;
+    }
+
+    .login-note {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+.language-selector {
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.language-selector select {
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+    .register-container {
+      max-width: 450px;
+      margin: 80px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-container h2 {
+      text-align: center;
+      color: #4c4c9d;
+      margin-bottom: 20px;
+    }
+
+    .register-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .register-container input[type="text"],
+    .register-container input[type="password"],
+    .register-container input[type="email"] {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .register-container button {
+      padding: 12px;
+      background: #7c7fdb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .register-container button:hover {
+      background: #5a5fd6;
+    }
+
+    .register-note {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 40px;
+}
+
+.robot-image {
+  width: 500px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.chat-container {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.lesson-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid #d0d9ff;
+  border-radius: 20px;
+  padding: 30px;
+  width: 48%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #7c7fdb;
+}
+
+.card img {
+  width: 100px;
+  height: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.emoji-bar {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.chat-box {
+  background: #f0f4ff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #d3e0ff;
+}
+
+.chat-log {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.bot {
+  background: #e3e8ff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  color: #2b2e6b;
+}
+
+.user {
+  background: #d1ffe0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  text-align: right;
+  color: #166534;
+}
+
+form {
+  display: block; /* or remove this rule entirely */
+}
+
+.login-container input[type="text"],
+.register-container input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button[type="submit"],
+#mic-button {
+  padding: 10px 16px;
+  background: #7c7fdb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+button[type="submit"]:hover,
+#mic-button:hover {
+  background: #5a5fd6;
+}
+
+body.auth-page {
+  background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: colum; /* center vertically */
+}
+
+.page-heading {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  color: #4c4c9d;
+  font-weight: bold;
+}
+
+.auth-center {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-avatar {
+  width: 400px;
+  margin-bottom: -7px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.auth-center form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-center form input,
+.auth-center form button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.auth-center form button {
+  background-color: #7c7fdb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-center form button:hover {
+  background-color: #5c5fd6;
+}
+
+.ask-btn {
+  margin-top: 20px;
+  display: inline-block;
+  color: #4c4c9d;
+  text-decoration: none;
+}

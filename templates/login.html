@@ -1,18 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>Login - SmartGuard</title>
+  <link rel="stylesheet" href="/static/style.css" />
 </head>
-<body class="auth-page">
-    <div class="auth-center">
-        <img src="{{ url_for('static', filename='wavingchatbot.png') }}" class="auth-avatar" alt="Chatbot">
-        <form action="/login" method="POST" class="auth-form">
-            <input type="text" name="school_id" placeholder="School ID" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="ask-btn">Login</button>
-        </form>
-        <a href="/register" class="ask-btn">Need an account? Register</a>
-    </div>
+<body class="auth-page bg-light-blue">
+
+  <!-- 🌍 Language Selector floating in top right -->
+ <form method="GET" action="/set-language" style="position: absolute; top: 10px; right: 10px;">
+    <label for="language">🌍</label>
+    <select name="language" id="language" onchange="this.form.submit()">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ht">Kreyòl Ayisyen</option>
+      <option value="zh">中文</option>
+    </select>
+  </form>
+
+  <!-- 🔐 Login Container -->
+  <div class="login-container">
+    <h2 class="page-heading">🔐 Login to SmartGuard</h2>
+
+    <img src="/static/chatbot.png" alt="Chatbot" class="robot-image" />
+
+    <form method="POST" action="/login">
+      <input type="text" name="school_id" id="school_id" placeholder="School ID" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <input type="text" name="code" id="code" placeholder="One-Time Passcode (OTP)" required />
+
+      <button type="submit">Login</button>
+
+      <div class="login-note">
+        <a href="/forgot-password">Forgot Password?</a>
+      </div>
+    </form>
+
+    <p class="login-note">Don't have an account? <a href="/register">Register here</a></p>
+  </div>
+
+  <script src="/static/script.js"></script>
 </body>
 </html>
