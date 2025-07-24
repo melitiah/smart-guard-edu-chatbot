@@ -1,1 +1,4 @@
 # requirements.txt
+openai
+flask
+python-dotenv

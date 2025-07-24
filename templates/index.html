@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Add this line -->
+    <title>Student Assistant Chatbot</title>
+</head>
+<body>
+    <!-- Logged-in user info and logout link -->
+    <div style="text-align: top-right; margin: 10px 20px;">
+        <h1>Welcome, {{ user.id }}!</h1>
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+
+    <div class="index-avatar-container">
+        <img src="{{ url_for('static', filename='chatbot.png') }}" alt="Chatbot" class="animated-avatar">
+    </div>
+
+    <div class="container">
+        <h2>Ask the Chatbot for Help!</h2>
+        <!-- Visual Lesson Blocks -->
+        <div class="lesson-blocks">
+            <div class="lesson-block">
+                <h5>Math Lesson</h5>
+                <img src="{{ url_for('static', filename='math.png') }}" alt="Math" style="width:60px;">
+                <p>Learn about fractions and decimals.</p>
+            </div>
+            <div class="lesson-block">
+                <h5>Science Lesson</h5>
+                <img src="{{ url_for('static', filename='science.png') }}" alt="Science" style="width:60px;">
+                <p>Explore the solar system.</p>
+            </div>
+        </div>
+        <!-- Daily Check-In (Emoji Mood Tracker) -->
+        <div class="mood-tracker">
+            <button type="button" class="mood-btn" onclick="selectMood('happy')">😊</button>
+            <button type="button" class="mood-btn" onclick="selectMood('neutral')">😐</button>
+            <button type="button" class="mood-btn" onclick="selectMood('sad')">😢</button>
+        </div>
+        <!-- Chatbot UI -->
+        <div id="chatbox"></div>
+        <input type="text" id="userInput" placeholder="Type your question..." style="width:80%;">
+        <button onclick="sendMessage()" class="ask-btn">Send</button>
+        <button id="micBtn" class="ask-btn" title="Speak your question">🎤</button>
+    </div>
+
+<script>
+    // Animate avatar with CSS
+    // Add this to your static/style.css:
+    /*
+    .animated-avatar {
+        animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0);}
+        50% { transform: translateY(-10px);}
+    }
+    */
+
+    // Mood Tracker
+    function selectMood(mood) {
+        document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
+        if (mood === 'happy') document.querySelector('.mood-btn:nth-child(1)').classList.add('selected');
+        if (mood === 'neutral') document.querySelector('.mood-btn:nth-child(2)').classList.add('selected');
+        if (mood === 'sad') document.querySelector('.mood-btn:nth-child(3)').classList.add('selected');
+    }
+
+    // Show greeting on load
+    window.onload = function() {
+        appendMessage('bot', "Hi, I'm Smart Guard EDU ChatBot! How can I help you with your schoolwork today?");
+    };
+
+    // Typing indicator
+    function showTyping() {
+        const chatbox = document.getElementById('chatbox');
+        const typingDiv = document.createElement('div');
+        typingDiv.id = 'typing';
+        typingDiv.className = 'bot';
+        typingDiv.textContent = 'LearnBuddy is typing...';
+        chatbox.appendChild(typingDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    function hideTyping() {
+        const typingDiv = document.getElementById('typing');
+        if (typingDiv) typingDiv.remove();
+    }
+
+    // Chatbot and Text-to-Speech
+    function appendMessage(sender, text) {
+        hideTyping();
+        const chatbox = document.getElementById('chatbox');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = sender;
+        msgDiv.textContent = sender === 'user' ? 'You: ' + text : 'LearnBuddy: ' + text;
+        chatbox.appendChild(msgDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+        // Text-to-speech for bot replies
+        if(sender === 'bot' && 'speechSynthesis' in window){
+            const utter = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utter);
+        }
+    }
+    async function sendMessage() {
+        const input = document.getElementById('userInput');
+        const message = input.value;
+        if (!message) return;
+        appendMessage('user', message);
+        input.value = '';
+        showTyping();
+        const res = await fetch('/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({message})
+        });
+        const data = await res.json();
+        appendMessage('bot', data.reply);
+    }
+    // Voice Input
+    const micBtn = document.getElementById('micBtn');
+    const userInput = document.getElementById('userInput');
+    if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+        micBtn.onclick = () => {
+            recognition.start();
+        };
+        recognition.onresult = (event) => {
+            userInput.value = event.results[0][0].transcript;
+        };
+    }
+</script>
+</body>
+</html>

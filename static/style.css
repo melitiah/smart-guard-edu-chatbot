@@ -1,0 +1,291 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f8fb;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Dashboard Titles */
+.dashboard-title {
+    font-size: 2rem;
+    color: #2a7be4;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Chatbot Styles */
+.chatbot-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.chatbot-avatar {
+    width: 60px;
+    border-radius: 50%;
+    border: 2px solid #2a7be4;
+}
+
+.chatbot-name {
+    font-weight: bold;
+    color: #2a7be4;
+    font-size: 1.2rem;
+}
+#chatbox {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #cce1fa;
+    padding: 12px;
+    background: #eaf4ff;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+.user { color: #333; }
+.bot { color: #2a7be4; }
+
+/* Ask a Question Button */
+.ask-btn {
+    background: #2a7be4;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background 0.2s;
+}
+.ask-btn:hover {
+    background: #185ca7;
+}
+
+/* Visual Lesson Blocks */
+.lesson-blocks {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+.lesson-block {
+    background: #f9fafc;
+    border: 1px solid #cce1fa;
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1 1 200px;
+    min-width: 180px;
+    box-shadow: 0 2px 8px rgba(42,123,228,0.06);
+    text-align: center;
+}
+
+/* Daily Check-in (Emoji Mood Tracker) */
+.mood-tracker {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+.mood-btn {
+    font-size: 2rem;
+    background: #fff;
+    border: 2px solid #cce1fa;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: border 0.2s;
+}
+.mood-btn.selected, .mood-btn:hover {
+    border: 2px solid #2a7be4;
+}
+
+/* Teacher/Counselor Dashboard */
+.flags-list {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.note-section {
+    background: #f4f8fb;
+    border: 1px solid #cce1fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.progress-overview {
+    background: #eaf4ff;
+    border: 1px solid #cce1fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.bullying-log {
+    background: #ffeaea;
+    border: 1px solid #ffb3b3;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* Parent Portal */
+.parent-summary {
+    background: #f9fafc;
+    border: 1px solid #cce1fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.permissions-control {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.weekly-report {
+    background: #eaf4ff;
+    border: 1px solid #cce1fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+    .container {
+        padding: 12px 4px;
+    }
+    .lesson-blocks {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.animated-avatar {
+    float: left;
+    margin-top: 100px;   /* Pushes it down */
+    margin-right: 20px;  /* Space from the content on the right */
+    animation: bounce 2s infinite;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.auth-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(234, 244, 255, 0.95); /* light blue with slight transparency */
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.auth-form input, .auth-form select {
+    padding: 8px;
+    border: 1px solid #cce1fa;
+    border-radius: 4px;
+}
+
+.logout-link {
+    color: #fff;
+    background-color: #007BFF;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout-link:hover {
+    background-color: #0056b3;
+}
+
+/* Center chatbot.png on index.html */
+.index-avatar-container {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Ensures overlay works consistently */
+}
+
+.auth-page {
+    position: relative;
+    background: url('../static/background.png') no-repeat center center fixed;
+    background-size: 100%;  /* Smaller image on larger screens */
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+}
+
+/* Responsive adjustment for tablets and smaller screens */
+@media (max-width: 1024px) {
+    .auth-page {
+        background-size: 100%; /* Fit full width on medium devices */
+    }
+}
+
+/* Responsive adjustment for phones */
+@media (max-width: 600px) {
+    .auth-page {
+        background-size: cover; /* Stretch to cover small screens */
+    }
+
+   .auth-center {
+       margin-top: 60px; /* Less space on small screens */
+   }
+}
+
+.auth-page::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* semi-transparent overlay */
+    z-index: 1;
+}
+
+.auth-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 120px; /* Pushes both image and form lower */
+}
+
+.auth-avatar {
+    animation: bounce 2s infinite;
+    display: block;
+    width: 300px;
+    height: auto;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}

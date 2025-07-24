@@ -1,0 +1,12 @@
+├──smart-guard-edu-chatbot/
+│
+├── app.py
+├── static/
+│   └── style.css
+│   └── wavingchatbot.png
+│   ├── chatbot.png
+│   ├── background.png
+└── templates/
+    ├── login.html
+    ├── register.html
+    └── index.html

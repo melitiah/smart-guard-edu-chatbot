@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page">
+    <div class="auth-center">
+        <img src="{{ url_for('static', filename='wavingchatbot.png') }}" class="auth-avatar" alt="Chatbot">
+        <form action="/login" method="POST" class="auth-form">
+            <input type="text" name="school_id" placeholder="School ID" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="ask-btn">Login</button>
+        </form>
+        <a href="/register" class="ask-btn">Need an account? Register</a>
+    </div>
+</body>
+</html>
