@@ -2,154 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome to SmartGuard!</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- Manifest -->
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <!-- App Icons -->
+  <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='icons/icon-192.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192.png') }}">
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#007bff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SmartGuard">
+
 </head>
 <body>
   <div class="page-container">
     <!-- Header -->
     <header class="page-header">
-      <h1>Welcome to SmartGuard!</h1>
-      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
-      
+
+    <div class="header-left">
+      <!-- 🌍 Language selector (top left) -->
       <form class="language-selector-form" method="post" action="/set-language">
         <span class="globe-emoji">🌍</span>
         <select id="language-selector" name="language" onchange="this.form.submit();">
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="ht">Kreyòl Ayisyen</option>
-          <option value="zh">中文</option>
+          <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+          <option value="es" {% if language == 'es' %}selected{% endif %}>Español</option>
+          <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>
+          <option value="de" {% if language == 'de' %}selected{% endif %}>Deutsch</option>
+          <option value="ht" {% if language == 'ht' %}selected{% endif %}>Kreyòl Ayisyen</option>
+          <option value="zh" {% if language == 'zh' %}selected{% endif %}>中文</option>
         </select>
       </form>
+
+       <!-- 💬 Greeting -->
+      <h1>Welcome, {{ user_name or 'Guest' }}!</h1>
+      </div>
+
+      <!-- 👤 Profile bubble (top right) -->
+      <div class="profile-menu">
+        
+        {% if current_user.profile_image %}
+          <img src="{{ url_for('static', filename=current_user.profile_image) }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+        {% else %}
+          <img src="{{ url_for('static', filename='profile_pics/default.png') }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+        {% endif %}
+      
+      <div id="dropdown" class="dropdown-content">
+        <div class="dropdown-header">
+          <div class="profile-thumbnail-container" onclick="document.getElementById('uploadInput').click()" title="Change or add profile picture" aria-label="Change or add profile picture" role="button">
+            {% if current_user.profile_image %}
+              <img src="{{ url_for('static', filename=current_user.profile_image) }}" class="dropdown-profile-pic" alt="Profile">
+            {% else %}
+              <img src="{{ url_for('static', filename='profile_pics/default.png') }}" class="dropdown-profile-pic" alt="Profile">
+            {% endif %}
+            <div class="camera-overlay">
+              📷
+            </div>
+          </div>
+
+          <div>
+            <p><strong>{{ current_user.name }}</strong><br><small>{{ current_user.email }}</small></p>
+          </div>
+        </div>
+        <form id="profilePicForm" method="POST" action="{{ url_for('update_profile_picture') }}" enctype="multipart/form-data" style="display: none;">
+          <input type="file" name="profile_image" id="uploadInput" accept="image/*" onchange="document.getElementById('profilePicForm').submit()">
+        </form>
+
+        <hr>
+        <a href="{{ url_for('profile') }}">Update Profile</a>
+        <a href="#">Ask for Help</a>
+        <a href="{{ url_for('logout') }}">Log Out</a>
+      </div>
+
+     </div>
     </header>
 
     <!-- Main Content -->
-    <div class="main-wrapper">
-      <!-- Left: Chatbot Image -->
-      <div class="chatbot-image-container">
-        <img src="{{ url_for('static', filename='chatbot.png') }}" alt="Chatbot" class="robot-image">
-      </div>
+<div class="main-wrapper centered-bot">
+  <!-- Chatbot Image -->
+  <div class="chatbot-image-container">
+    <img src="{{ url_for('static', filename='chatbot.png') }}" alt="Chatbot" class="robot-image">
+  </div>
 
-      <!-- Right: Chat Interface Card -->
-      <div class="chat-card">
-        <h2>Ask the Chatbot for Help!</h2>
-        <div class="lesson-cards">
-          <div class="card">
-            <img src="{{ url_for('static', filename='math.png') }}" alt="Math Lesson">
-            <h3>Math Lesson</h3>
-            <p>Learn about fractions and decimals.</p>
-          </div>
-          <div class="card">
-            <img src="{{ url_for('static', filename='science.png') }}" alt="Science Lesson">
-            <h3>Science Lesson</h3>
-            <p>Explore the solar system.</p>
-          </div>
-        </div>
-        <div class="emoji-bar">
-          <span>😊</span><span>😲</span><span>😱</span>
-        </div>
+  <!-- Chat UI & Extras -->
+  <h2>Ask the Chatbot for Help!</h2>
 
-        <div id="chat-log" class="chat-log">
-          <!-- Greeting appears here automatically -->
-        </div>
-
-        <form id="chat-form">
-          <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off" required>
-          <button type="submit">Send</button>
-          <button type="button" id="mic-button">🎤</button>
-        </form>
-      </div>
+  <div class="lesson-cards">
+    <div class="card">
+      <img src="{{ url_for('static', filename='math.png') }}" alt="Math Lesson">
+      <h3>Math Lesson</h3>
+      <p>Learn about fractions and decimals.</p>
+    </div>
+    <div class="card">
+      <img src="{{ url_for('static', filename='science.png') }}" alt="Science Lesson">
+      <h3>Science Lesson</h3>
+      <p>Explore the solar system.</p>
     </div>
   </div>
 
+  <div class="emoji-bar">
+    <span>😊</span><span>😲</span><span>😱</span>
+  </div>
+
+  <div class="chat-card">
+    <div id="chat-log" class="chat-log"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off" required>
+      <button type="submit">Send</button>
+      <button type="button" id="mic-button">🎤</button>
+    </form>
+  </div>
+</div>
+
   <!-- Script -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  
+  <!-- Register the service worker -->
   <script>
-    const chatForm = document.getElementById("chat-form");
-    const userInput = document.getElementById("user-input");
-    const chatLog = document.getElementById("chat-log");
-    const langSelector = document.getElementById("language-selector");
-    const micButton = document.getElementById("mic-button");
-
-    const greetings = {
-      en: "Hello! I am your SmartGuard EDU here to help with your homework. Ask me about math, science, or history!",
-      es: "¡Hola! Soy tu SmartGuard EDU para ayudarte con la tarea. ¡Pregúntame sobre matemáticas, ciencia o historia!",
-      fr: "Bonjour ! Je suis votre SmartGuard EDU pour vous aider avec vos devoirs. Demandez-moi des choses sur les maths, les sciences ou l’histoire.",
-      de: "Hallo! Ich bin dein SmartGuard EDU und helfe dir bei deinen Hausaufgaben. Frag mich nach Mathe, Wissenschaft oder Geschichte.",
-      zh: "你好！我是你的 SmartGuard EDU，可以帮助你做作业。可以问我数学、科学或历史方面的问题。"
-    };
-
-    function appendMessage(sender, text) {
-      const div = document.createElement("div");
-      div.className = "chat-message";
-      div.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      chatLog.appendChild(div);
-      chatLog.scrollTop = chatLog.scrollHeight;
-    }
-
-    function speak(text, lang) {
-      if ('speechSynthesis' in window) {
-        const ut = new SpeechSynthesisUtterance(text);
-        ut.lang = lang + (lang === 'zh' ? '-CN' : '-US');
-        speechSynthesis.speak(ut);
-      }
-    }
-
-    function handleBotReply(text) {
-      appendMessage("🤖 SmartGuard", text);
-      speak(text, langSelector.value);
-    }
-
-    chatForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = userInput.value.trim();
-      const lang = langSelector.value;
-      if (!msg) return;
-      appendMessage("🧑‍🎓 You", msg);
-      userInput.value = "";
-      try {
-        const resp = await fetch("/chat-with-language", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({message: msg, language: lang})
-        });
-        const data = await resp.json();
-        handleBotReply(data.reply || "Sorry, I didn't understand that.");
-      } catch {
-        handleBotReply("⚠️ There was a problem connecting to the chatbot.");
-      }
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const lang = langSelector.value;
-      const greeting = greetings[lang] || greetings["en"];
-      handleBotReply(greeting);
-    });
-
-    langSelector.addEventListener("change", () => {
-      const g = greetings[langSelector.value] || greetings["en"];
-      handleBotReply(g);
-    });
-
-    const recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognizer.interimResults = false;
-    recognizer.maxAlternatives = 1;
-
-    micButton.addEventListener("click", () => {
-      recognizer.lang = langSelector.value + (langSelector.value === 'zh' ? '-CN' : '-US');
-      recognizer.start();
-      micButton.innerText = "🎙️ Listening...";
-    });
-
-    recognizer.onresult = e => {
-      userInput.value = e.results[0][0].transcript;
-      chatForm.dispatchEvent(new Event("submit"));
-      micButton.innerText = "🎤";
-    };
-
-    recognizer.onerror = () => micButton.innerText = "🎤";
-    recognizer.onend = () => micButton.innerText = "🎤";
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js")
+      .then(() => console.log("✅ Service Worker registered!"))
+      .catch(err => console.error("❌ Service Worker registration failed:", err));
+  }
   </script>
+  
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <p>&copy; 2025 SmartGuard EDU. All rights reserved.</p>
+    <p>Made with ❤️ by the Silent Killers Team</p>
+  </footer>
 </body>
 </html>

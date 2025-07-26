@@ -7,6 +7,23 @@ body.auth-page {
   padding: 0;
 }
 
+/* Typography */
+h1 {
+  font-size: 2rem; /* default for desktop */
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem; /* for tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.2rem; /* for phones */
+  }
+}
+
 /* 🧭 Layout Centering for Auth Page */
 body.auth-page {
   display: flex;
@@ -16,15 +33,16 @@ body.auth-page {
   height: 100vh;
 }
 
-/* 🌍 Language Selector (Top Right) */
+/* 🌍 Language Selector (Top left) */
 .language-selector-form {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1rem;
+  left: 1rem;
   display: flex;
   align-items: center;
-  gap: 8px;
-  z-index: 1000;
+  gap: 0.5rem;
+  z-index: 999;
+  margin-bottom: 1.5rem;
 }
 
 .language-selector-form label {
@@ -33,9 +51,9 @@ body.auth-page {
 }
 
 .language-selector-form select {
-  padding: 8px 12px;
+  padding: 4px 6px;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid #ccc;
   background-color: white;
 }
@@ -48,7 +66,22 @@ body.auth-page {
   color: #4c4c9d;
   text-align: center;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);` 
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 
@@ -209,14 +242,6 @@ button[type="submit"]:hover,
   color: #166534;
 }
 
-/* 🧩 Lesson Cards */
-.lesson-cards {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 20px;
-}
-
 .card {
   background: #ffffff;
   border: 2px solid #d0d9ff;
@@ -245,4 +270,254 @@ button[type="submit"]:hover,
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
+}
+
+.main-wrapper.centered-bot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
+
+.robot-image {
+  width: 300px;
+  max-width: 400px;
+  height: auto;
+}
+
+.chat-card {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-cards {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chat-log {
+  min-height: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#chat-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#chat-form input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#chat-form button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+/* 📱 Mobile Devices (up to 600px) */
+@media (max-width: 600px) {
+  html {
+    font-size: 18px; /* Make base font larger */
+  }
+
+  .page-heading {
+    font-size: 26px;
+  }
+
+  .auth-avatar,
+  .robot-image {
+    width: 250px;
+  }
+
+  .auth-center,
+  .login-container,
+  .register-container,
+  .chat-container,
+  .chat-card {
+    padding: 25px;
+    max-width: 95%;
+    border-radius: 15px;
+  }
+
+  .card {
+    width: 100%;
+    padding: 25px;
+    font-size: 18px;
+  }
+
+  #chat-form input {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  #chat-form button {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .language-selector-form {
+    top: 10px;
+    right: 10px; /* keep it top-left */
+    right: auto;
+    flex-direction: row; /* <-- keep it side-by-side */
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+/* 👤 Profile Bubble and Dropdown */
+.profile-menu {
+  position: absolute;
+  top: 2rem; /* <- increased from 1rem to move down */
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Profile Menu & Dropdown Styles */
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.profile-pic:hover {
+  border-color: #7c7fdb;
+}
+
+/* Style for profile image inside the dropdown */
+.dropdown-profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: left;
+}
+
+.dropdown-content p {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 10px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-content hr {
+  margin: 0.5rem 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+/* Container for mini profile pic in dropdown */
+.profile-thumbnail-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.dropdown-profile-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Camera icon overlay on hover */
+.camera-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-thumbnail-container:hover .camera-overlay {
+  opacity: 1;
+}
+
+.profile-thumbnail-container:hover::after {
+  content: "Change or add profile picture";
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+@media (hover: none) {
+  .profile-thumbnail-container:hover::after {
+    display: none;
+  }
 }

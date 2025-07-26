@@ -1,4 +1,3 @@
-<script>
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 const chatLog = document.getElementById("chat-log");
@@ -11,7 +10,8 @@ const greetings = {
   es: "¡Hola! Soy tu SmartGuard EDU para ayudarte con tu tarea. 😊",
   fr: "Bonjour ! Je suis votre SmartGuard EDU pour vous aider avec vos devoirs. 😊",
   de: "Hallo! Ich bin dein SmartGuard EDU, um dir bei deinen Hausaufgaben zu helfen. 😊",
-  zh: "你好！我是你的SmartGuard EDU，来帮助你完成作业。😊"
+  ht: "Bonjou! Mwen se SmartGuard EDU ou, la pou ede ou ak devwa ou. 😊",
+  zh: "你好！我是你的SmartGuard EDU，来帮助你完成作业。😊",
 };
 
 // ✉️ Append messages to chat
@@ -32,17 +32,28 @@ function appendMessage(sender, text) {
 // 🔊 Speak text aloud
 function speakText(text) {
   if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Remove emojis and other non-verbal Unicode symbols
+    const cleanedText = text.replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, '');
+
+    const utterance = new SpeechSynthesisUtterance(cleanedText);
     utterance.lang = langSelector.value || "en";
+    
+     // Optionally select an appropriate voice
+    const voices = speechSynthesis.getVoices();
+    const selectedVoice = voices.find(v => v.lang.startsWith(utterance.lang));
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+    
     speechSynthesis.speak(utterance);
   }
 }
 
 // 👋 Show greeting message
-function showGreeting(lang) {
+function showGreeting(lang, speak = false) {
   const greeting = greetings[lang] || greetings["en"];
   appendMessage("🤖 SmartGuard", greeting);
-  speakText(greeting, lang);
+  if (speak) speakText(greeting);
 }
 
 // 🎤 Mic Setup
@@ -52,7 +63,7 @@ recognition.maxAlternatives = 1;
 
 langSelector.addEventListener("change", () => {
   recognition.lang = langSelector.value;
-  showGreeting(langSelector.value);
+  showGreeting(langSelector.value, true); // speak on language change
 });
 
 // 🎙️ Mic button
@@ -90,11 +101,9 @@ chatForm.addEventListener("submit", async (e) => {
 
   if (!message) return;
 
-  // Show user's message
   appendMessage("🧑‍🎓 You", message);
   userInput.value = "";
 
-  // Show temporary placeholder
   const typingMsg = document.createElement("div");
   typingMsg.className = "bot";
   typingMsg.textContent = "🤖 SmartGuard is typing...";
@@ -109,12 +118,8 @@ chatForm.addEventListener("submit", async (e) => {
     });
 
     const data = await response.json();
-
-    // Remove the typing message
     chatLog.removeChild(typingMsg);
-
-    // Show the actual response
-    handleBotReply(data.reply);
+    handleBotReply(data.reply || "⚠️ Sorry, something went wrong.");
   } catch (err) {
     console.error("Chat error:", err);
     chatLog.removeChild(typingMsg);
@@ -122,10 +127,36 @@ chatForm.addEventListener("submit", async (e) => {
   }
 });
 
-
 // 🏁 Initial greeting
 window.addEventListener("DOMContentLoaded", () => {
   const currentLang = langSelector.value || "en";
-  showGreeting(currentLang);
+  showGreeting(currentLang, false); // don't speak until user interacts
 });
-</script>
+
+// ... your existing chatbot logic: speech, mic, chat handling, etc.
+
+// 👤 Profile dropdown toggle
+function toggleDropdown() {
+  const dropdown = document.getElementById("dropdown");
+  dropdown.classList.toggle("show");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+document.addEventListener("click", function(event) {
+  const menu = document.querySelector(".profile-menu");
+  if (!menu.contains(event.target)) {
+    document.getElementById("dropdown").style.display = "none";
+  }
+});
+
+// 🔒 Close dropdown when clicking outside
+window.addEventListener("click", function(e) {
+  if (!e.target.matches('.profile-pic')) {
+    const dropdown = document.getElementById("dropdown");
+    if (dropdown && dropdown.classList.contains('show')) {
+      dropdown.classList.remove('show');
+    }
+  }
+});
+
+
